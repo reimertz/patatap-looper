@@ -1,5 +1,4 @@
 $(function(){
-
   var SL = {
       beatsPerLoop: 16,
       beatsPerMinute: 200,
@@ -33,11 +32,11 @@ $(function(){
 
   function playBeat(loop, beat) {
     if(loop[beat] !== '-'){
-      $objects.e.which = loop[beat].toUpperCase().charCodeAt(0);
-      $objects.$input.val(String.fromCharCode($objects.e.which));
-      $objects.$html.trigger($objects.e);
+      var e = jQuery.Event("keydown");
+      e.which = loop[beat].toUpperCase().charCodeAt(0);
+      $("input").val(String.fromCharCode(e.which));
+      $("html").trigger(e);
     }
-
   }
 
   function superloop(beat, bpl, bpm) {
