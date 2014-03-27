@@ -19,14 +19,14 @@ $(function(){
 
     setTimeout(function(){
       var nextBeat = (beat+1)%bpl; 
-      beatIt(loop, nextBeat, beatPerLoop, BeatsPerMinute);
-    }, (1000 * 60) / BeatsPerMinute);
+      beatIt(loop, nextBeat, bpl, bmp);
+    }, (1000 * 60) / bmp);
     
   }
 
   function initBeats(beats, bpl, bmp){
     _.each(beats, function(beat){
-      beatIt(beat.split(' '), 0, beatPerLoop, BeatsPerMinute);
+      beatIt(beat.split(' '), 0, bpl, bmp);
     });
   }
 
