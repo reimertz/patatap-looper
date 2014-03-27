@@ -15,4 +15,5 @@ it supports beats per minute and beats per loop.
 PS. you can play at the same time as the looper is doing it's thang.. :)
 
 
+Contributors : THRILL-jacinto
 
