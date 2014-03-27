@@ -1,38 +1,61 @@
 $(function(){
-  var beatPerLoop = 16,
-      BeatsPerMinute = 200,
-      $objects = {
-        e: jQuery.Event("keydown"),
-        $input : $("input"),
-        $html : $("html")
-      };
-      
-      loops = {
-        base_loop     : 'e - - - e - - - e - - - e - - -',
-        snare_loop    : '- - o - - - o - - - o - - - o -',
-        love_loop     : '- p - h - e - a - r - t - m - -'
-      };
 
-  function beatIt (loop, beat, bpl, bpm, $objects) {
+  var SL = {
+      beatsPerLoop: 16,
+      beatsPerMinute: 200,
+      _loops: {},
+      _stop: false,
+      add: function(name, beats) {
+        this._loops[name] = beats.split(' ');
+      },
+      remove: function(name, beats) {
+        delete this._loops[name];
+      },
+      list: function() {
+        var count = 0;
+        for (key in this._loops) {
+          console.log(key + ': ' + this._loops[key].join(' '));
+          count++;
+        }
+        console.log(count + ' loop(s)');
+      },
+      clear: function() {
+        this._loops = {};
+      },
+      stop: function() {
+        this._stop = true;
+      },
+      start: function() {
+        this._stop = false
+        superloop(0, this.beatsPerLoop, this.beatsPerMinute);
+      }
+  }
 
+  function playBeat(loop, beat) {
     if(loop[beat] !== '-'){
       $objects.e.which = loop[beat].toUpperCase().charCodeAt(0);
       $objects.$input.val(String.fromCharCode($objects.e.which));
       $objects.$html.trigger($objects.e);
     }
 
-    setTimeout(function(){
-
-      var nextBeat = ((beat+1) === bpl) ?  0 : (beat+1); 
-      beatIt(loop, nextBeat, bpl, bpm, $objects);
-    }, (1000 * 60) / BeatsPerMinute);
   }
 
-  function initBeats (loops, bpl, bpm, $objects) {
-    _.each(loops, function(loop){
-      beatIt(loop.split(' '), 0, bpl, bpm, $objects);
+  function superloop(beat, bpl, bpm) {
+    _.each(SL._loops, function(loop) {
+      playBeat(loop, beat);
     });
+    if (SL._stop)
+      return
+    setTimeout(function(){
+      var nextBeat = (beat+1)%bpl;
+      superloop(nextBeat, bpl, bpm);
+    }, (1000 * 60) / bpm);
   }
-
-  initBeats(loops, beatPerLoop, BeatsPerMinute, $objects);
+  
+  superloop(0, SL.beatsPerLoop, SL.beatsPerMinute);
+  window.superloops = SL;
 });
+
+superloops.add('base', 'e - - - e - - - e - - - e - - -');
+superloops.add('snare', '- - o - - - o - - - o - - - o -');
+superloops.add('love', '- p - h - e - a - r - t - m - -');
