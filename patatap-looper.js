@@ -33,7 +33,11 @@ $(function(){
   function playBeat(loop, beat) {
     if(loop[beat] !== '-'){
       var e = jQuery.Event("keydown");
-      e.which = loop[beat].toUpperCase().charCodeAt(0);
+      try {
+        e.which = loop[beat].toUpperCase().charCodeAt(0);
+      } catch(error) {
+        console.warn('Typo at beat ' + beat + '');
+      }
       $("input").val(String.fromCharCode(e.which));
       $("html").trigger(e);
     }
@@ -53,6 +57,7 @@ $(function(){
   
   superloop(0, SL.beatsPerLoop, SL.beatsPerMinute);
   window.superloops = SL;
+  console.clear();
 });
 
 superloops.add('base', 'e - - - e - - - e - - - e - - -');
