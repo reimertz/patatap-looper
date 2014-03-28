@@ -57,6 +57,7 @@ $(function(){
   
   superloop(0, SL.beatsPerLoop, SL.beatsPerMinute);
   window.superloops = SL;
+  console.clear();
 });
 
 superloops.add('base', 'e - - - e - - - e - - - e - - -');
