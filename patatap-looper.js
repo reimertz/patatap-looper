@@ -57,8 +57,11 @@ $(function(){
   
   superloop(0, SL.beatsPerLoop, SL.beatsPerMinute);
   window.superloops = SL;
-  console.clear();
+  $("html").append('<div style="position:fixed; top: 10px; left: 10px;font-family:helvetica; font-size: 30px;color: white; padding: 20px;background-color: rgba(0,0,0,0.2);border: 5px solid black;">github.com/reimertz/patatap-looper</div>');
+  console.clear()
 });
+
+
 
 superloops.add('base', 'e - - - e - - - e - - - e - - -');
 superloops.add('snare', '- - o - - - o - - - o - - - o -');
