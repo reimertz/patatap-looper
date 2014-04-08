@@ -1,4 +1,4 @@
-$(function(){
+(function(exports, $container){
   var SL = {
       beatsPerLoop: 16,
       beatsPerMinute: 200,
@@ -6,6 +6,7 @@ $(function(){
       _stop: false,
       add: function(name, beats) {
         this._loops[name] = beats.split(' ');
+        return this;
       },
       remove: function(name, beats) {
         delete this._loops[name];
@@ -56,13 +57,15 @@ $(function(){
   }
   
   superloop(0, SL.beatsPerLoop, SL.beatsPerMinute);
-  window.superloops = SL;
-  $("html").append('<div style="position:fixed; top: 10px; left: 10px;font-family:helvetica; font-size: 30px;color: white; padding: 20px;background-color: rgba(0,0,0,0.2);border: 5px solid black;">github.com/reimertz/patatap-looper</div>');
+  exports.superloops = SL;
+  if ($container) {
+    $container.append('<div style="position:fixed; top: 10px; left: 10px;font-family:helvetica; font-size: 30px;color: white; padding: 20px;background-color: rgba(0,0,0,0.2);border: 5px solid black;">github.com/reimertz/patatap-looper</div>');
+  }
   console.clear()
-});
+})(window, $("html"));
 
 
 
-superloops.add('base', 'e - - - e - - - e - - - e - - -');
-superloops.add('snare', '- - o - - - o - - - o - - - o -');
-superloops.add('love', '- p - h - e - a - r - t - m - -');
+superloops.add('base', 'e - - - e - - - e - - - e - - -')
+          .add('snare', '- - o - - - o - - - o - - - o -')
+          .add('love', '- p - h - e - a - r - t - m - -');
