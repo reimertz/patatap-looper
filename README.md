@@ -15,5 +15,13 @@ it supports beats per minute and beats per loop.
 PS. you can play at the same time as the looper is doing it's thang.. :)
 
 
+Would love create this in the future:
+
+* Sequencer
+* Be able to save songs
+
+Please help out if you love music. :)
+
+
 Contributors : THRILL-jacinto
 
